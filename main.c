@@ -1,4 +1,4 @@
-#include "ft_fdf.h"
+#include "Includes/ft_fdf.h"
 
 int		main(int argc, char **argv)
 {
@@ -15,6 +15,7 @@ int		main(int argc, char **argv)
 	
 	
 	env.tab = get_table(fd, &env);
+	env.coord_tab = get_coord_table(env);
 
 //a enlever
 	ft_show_tab(env.tab, env.x_size, env.y_size);
@@ -25,6 +26,8 @@ int		main(int argc, char **argv)
 	error = 0;
 	error = ft_mlx_tab_treat(env);
 	free_tab(env.tab, env.y_size);
+	free(env.coord_tab);
+//que se passe t il si vide ?)
 
 	if (error != 0)
 		return (ft_error());

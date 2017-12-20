@@ -1,4 +1,4 @@
-#include "ft_fdf.h"
+#include "Includes/ft_fdf.h"
 
 
 int		*ft_convert_int(char **char_tab, int *line_size)
@@ -71,4 +71,23 @@ int		**get_table(int fd, t_env *env_ptr)
 	}
 	env_ptr->y_size = i;
 	return (tab);
+}
+
+t_coord		*get_coord_table(t_env env)
+{
+	int		i;
+	int		size;
+	t_coord	*coord_tab;
+
+	size = env.x_size * env.y_size;
+	if (!(coord_tab = (t_coord *)malloc(sizeof(t_coord) * size)))
+		exit(0);
+	i = 0;
+	while (i < size)
+	{
+		coord_tab[i].x = i%env.x_size;
+		coord_tab[i].y = i/env.x_size;
+		coord_tab[i].z = env.tab[coord_tab[i].y][coord_tab[i].x];
+	}
+	return (coord_tab);
 }

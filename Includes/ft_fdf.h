@@ -15,16 +15,25 @@
 # define WIN_Y 840
 # define BASE_COLOR 0xFFFFFF
 
+typedef struct	s_coord
+{
+	int		x;
+	int		y;
+	int		z;
+}				t_coord;
+
+//mettre ds struct X et Y parallele et iso et appeler fonctions qui remplissent
+//ajouter define tqilles fenetre zr faire fonction draw ac pas qui correspond
 
 typedef struct	s_env
 {
 	void	*mlx;
 	void	*win;
 	int		**tab;
+	t_coord	*coord_tab;
 	int		x_size;
 	int		y_size;
 }				t_env;
-
 
 int		ft_error();
 //retourne 1 et ecrit qqc sur sortie d'erreur (peut aussi eventuellement prendre param si on ecrit plusieurs choses
@@ -34,6 +43,9 @@ void	ft_show_tab(int **tab, int x_size, int y_size);
 
 int		**get_table(int fd, t_env *env_ptr);
 //ac GNL et split remplit un tableau (en checkant erreurs) a voir si on finit chaque linge par 0 (fait partie du split? )
+
+t_coord		*get_coord_table(t_env env);
+//tableau de coord plus simple a traiter.
 
 void	free_tab(int **tab, int tab_lines);
 //free toutes les lignes de tab jusqu a tablines a voir si on balance la size de tab ou pasi

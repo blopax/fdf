@@ -1,4 +1,4 @@
-#include "ft_fdf.h"
+#include "Includes/ft_fdf.h"
 
 int		ft_error()
 {
@@ -24,6 +24,7 @@ void	free_tab(int **tab, int tab_lines)
 	}
 }
 
+
 void	ft_show_tab(int **tab, int x_size, int y_size)
 {
 	int		i;
@@ -43,3 +44,4 @@ void	ft_show_tab(int **tab, int x_size, int y_size)
 		ft_putstr("\n");
 	}
 }
+
