@@ -45,3 +45,17 @@ void	ft_show_tab(int **tab, int x_size, int y_size)
 	}
 }
 
+void	ft_show_coord_tab(t_coord *coord_tab, int x_size, int y_size)
+{
+    int		i;
+    
+    i = 0;
+    while (i < x_size * y_size)
+    {
+        ft_putnbr(coord_tab[i].X_proj);
+        ft_putstr("/");
+        ft_putnbr(coord_tab[i].Y_proj);
+        ft_putstr("\t");
+        i++;
+    }
+}

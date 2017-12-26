@@ -85,9 +85,10 @@ t_coord		*get_coord_table(t_env env)
 	i = 0;
 	while (i < size)
 	{
-		coord_tab[i].x = i%env.x_size;
-		coord_tab[i].y = i/env.x_size;
+		coord_tab[i].x = i % env.x_size;
+		coord_tab[i].y = i / env.x_size;
 		coord_tab[i].z = env.tab[coord_tab[i].y][coord_tab[i].x];
+        i++;
 	}
 	return (coord_tab);
 }
