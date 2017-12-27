@@ -71,9 +71,9 @@ int	get_next_line(int fd, char **line);
 //FCT LIBFT UTILISEES
 //char	**ft_split(char *line, char c);
 
-void    ft_transfo(t_env env, void (*ft_transfo_coord)(t_env));
-void    ft_transfo_para(t_env env);
-void    ft_transfo_iso(t_env env);
+void    ft_transfo(t_env env, void (*ft_transfo_coord)(t_env env, int i));
+void    ft_transfo_para(t_env env, int i);
+void    ft_transfo_iso(t_env env, int i);
 
 
 int     ft_colour(int z);
