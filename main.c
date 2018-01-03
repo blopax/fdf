@@ -15,23 +15,21 @@ int		main(int argc, char **argv)
 	
 	env.tab = get_table(fd, &env);
 
-ft_putstr("\nA\n");
 	env.coord_tab = get_coord_table(env);
     
-    env.para_cte = 0.5;
-    env.iso_cte1 = 0.5;
-    env.iso_cte2 = 0.5;
+    env.para_cte = 0.1;
+    env.iso_cte1 = 0.1;
+    env.iso_cte2 = 0.1;
     env.transfo = 0;
 
-ft_putstr("\nB\n");
-    ft_transfo(env, &ft_transfo_iso);
+ //   ft_transfo(env, &ft_transfo_para);
 
+    ft_transfo(env, &ft_transfo_para);
 
-ft_putstr("\nC\n");
 
 //a enlever
 //	ft_show_tab(env.tab, env.x_size, env.y_size);
-  //  ft_show_tab(env.tab, env.x_size, env.y_size);
+    ft_show_tab(env.tab, env.x_size, env.y_size);
     //ft_putstr("\n\n\n");
 
     

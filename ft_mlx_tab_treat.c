@@ -45,13 +45,15 @@ int		mouse_hook(int button, int x, int y, t_env *env_ptr)
 
 int		expose_hook(t_env *env_ptr)
 {
-    if (env_ptr->transfo == 0)
-        ft_transfo(*env_ptr, &ft_transfo_para);
-    if (env_ptr->transfo == 1)
-        ft_transfo(*env_ptr, &ft_transfo_iso);
+  //  if (env_ptr->transfo == 0)
+     //   ft_transfo(*env_ptr, &ft_transfo_para);
+   // if (env_ptr->transfo == 1)
+     //   ft_transfo(*env_ptr, &ft_transfo_iso);
 
 
+ft_putstr("\n1\n");
     draw(env_ptr);
+ft_putstr("\n2\n");
 	return (0);
 }
 
@@ -61,7 +63,7 @@ int		ft_mlx_tab_treat(t_env env)
 	if (!(env.mlx = mlx_init()))
 		return (1);
 
-    env.transfo = 0;
+//    env.transfo = 0;
 	if (!(env.win = mlx_new_window(env.mlx, WIN_X, WIN_Y, "FDF window")))
 		return (1);
 

@@ -28,7 +28,8 @@ void	draw_lines(t_env env, int x1, int y1, int z1, int x2, int y2, int z2)
     int     x;
 	int     y;
 
-
+if (x1 == x2 && y1 == y2)
+	exit (0);
 
 
     if (x2 == x1)
@@ -83,18 +84,21 @@ void	draw(t_env *env_ptr)
 
     while (i < env_ptr->x_size * env_ptr->y_size)
     {
-        if ((i % env_ptr->y_size) + 1 < env_ptr->x_size)
+        if ((i % env_ptr->x_size) + 1 < env_ptr->x_size)
         {
-            draw_lines(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj, env_ptr->coord_tab
-                    [i].z, env_ptr->coord_tab[i + 1].X_proj, env_ptr->coord_tab[i + 1].Y_proj, env_ptr->coord_tab[i+1].z);
-        
-        
-
+			if (env_ptr->coord_tab[i].X_proj != env_ptr->coord_tab[i + 1].X_proj || env_ptr->coord_tab[i].Y_proj != env_ptr->coord_tab[i + 1].Y_proj)
+			{
+				draw_lines(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj, env_ptr->coord_tab
+					    [i].z, env_ptr->coord_tab[i + 1].X_proj, env_ptr->coord_tab[i + 1].Y_proj, env_ptr->coord_tab[i+1].z);
+			}
         }
-        if ((i / env_ptr->y_size) + 1 < env_ptr->y_size)
+        if ((i / env_ptr->x_size) + 1 < env_ptr->y_size)
         {
-            draw_lines(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj, env_ptr->coord_tab[i].z, env_ptr->coord_tab[i + env_ptr->y_size].X_proj, env_ptr->coord_tab[i + env_ptr->y_size].Y_proj, env_ptr->coord_tab[i + env_ptr->y_size].z);
-        }
+			if (env_ptr->coord_tab[i].X_proj != env_ptr->coord_tab[i + env_ptr->x_size].X_proj || env_ptr->coord_tab[i].Y_proj != env_ptr->coord_tab[i + env_ptr->x_size].Y_proj)
+			{
+				draw_lines(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj, env_ptr->coord_tab[i].z, env_ptr->coord_tab[i + env_ptr->x_size].X_proj, env_ptr->coord_tab[i + env_ptr->x_size].Y_proj, env_ptr->coord_tab[i + env_ptr->x_size].z);
+			}
+		}
         i++;
     }
 }
