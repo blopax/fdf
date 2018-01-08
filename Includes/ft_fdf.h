@@ -25,23 +25,57 @@ typedef struct	s_coord
     int     colour;
 }				t_coord;
 
+typedef struct	s_double_coord
+{
+	double		x;
+	double		y;
+	double		z;
+    double		X_proj;
+    double		Y_proj;
+}				t_double_coord;
 //mettre ds struct X et Y parallele et iso et appeler fonctions qui remplissent
 //ajouter define tailles fenetre zr faire fonction draw ac pas qui correspond
 
+typedef struct	s_param
+{
+	int		x_rotation;
+	int		y_rotation;
+	int		z_rotation;
+	int		applied_transfo;
+	double	para_cte;
+    double	iso_cte1;
+    double	iso_cte2;
+	double	manual_total_scale;
+	double	manual_z_scale;
+    int		win_x;
+	int		win_y;
+}				t_param;
+
+
+typedef struct	s_XY_info
+{
+	double		X_max;
+	double		X_min;
+	double		X_width;
+    double		Y_max;
+    double		Y_min;
+    double		Y_width;
+}				t_XY_info;
+
 typedef struct	s_env
 {
-	void	*mlx;
-	void	*win;
-	int		**tab;
-	t_coord	*coord_tab;
-	int		x_size;
-	int		y_size;
-    double  para_cte;
-    double  iso_cte1;
-    double  iso_cte2;
-    int     transfo;
-}				t_env;
-
+	void			*mlx;
+	void			*win;
+	int				**tab;
+	int				x_size;
+	int				y_size;
+	t_XY_info		XY_info;
+	t_coord			*coord_tab;
+	t_double_coord	*double_coord_tab;
+	double			scale;
+	t_double_coord	origin;
+	t_param			param;
+}					t_env;
 
 
 int		ft_error();
@@ -50,7 +84,7 @@ int		ft_error();
 
 void	ft_show_tab(int **tab, int x_size, int y_size);
 void	ft_show_coord_tab(t_coord *coord_tab, int x_size, int y_size);
-
+void	ft_show_double_coord_tab(t_double_coord *double_coord_tab, int x_size, int y_size);
 
 int		**get_table(int fd, t_env *env_ptr);
 //ac GNL et split remplit un tableau (en checkant erreurs) a voir si on finit chaque linge par 0 (fait partie du split? )
@@ -71,17 +105,20 @@ int	get_next_line(int fd, char **line);
 //FCT LIBFT UTILISEES
 //char	**ft_split(char *line, char c);
 
-void    ft_transfo(t_env env, void (*ft_transfo_coord)(t_env env, int i));
-void    ft_transfo_para(t_env env, int i);
-void    ft_transfo_iso(t_env env, int i);
+void    ft_double_transfo(t_env *env_ptr);
+t_double_coord		*ft_rotation(t_double_coord *initial, t_double_coord *origin, char c, int angle);
 
 
 int     ft_colour(int z);
 void	draw_lines(t_env env, int x1, int y1, int z1, int x2, int y2, int z2);
 void	draw(t_env *env_ptr);
 
+void	ft_init_env(t_env *env_ptr);
+void	ft_init_param(t_param *param);
+void	ft_rotate(t_env *env_ptr);
+void	ft_scale(t_env *env_ptr);
+void	ft_scale_apply(t_env *env_ptr);
+void	ft_manipulate_data(t_env *env_ptr);
 
-//tests
-void    ft_transfo_xy(t_env env);
 
 #endif

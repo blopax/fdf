@@ -11,37 +11,21 @@ int		main(int argc, char **argv)
 
 	if ((fd = open(argv[1], O_RDONLY)) <= 0)
 		return (ft_error());
-	
-	
+
+	ft_init_env(&env);
 	env.tab = get_table(fd, &env);
-
-	env.coord_tab = get_coord_table(env);
-    
-    env.para_cte = 0.1;
-    env.iso_cte1 = 0.1;
-    env.iso_cte2 = 0.1;
-    env.transfo = 0;
-
- //   ft_transfo(env, &ft_transfo_para);
-
-    ft_transfo(env, &ft_transfo_para);
-
-
-//a enlever
-//	ft_show_tab(env.tab, env.x_size, env.y_size);
-    ft_show_tab(env.tab, env.x_size, env.y_size);
-    //ft_putstr("\n\n\n");
-
-    
+//	env.coord_tab = get_coord_table(env);
 	if (close(fd) != 0)
 		return (ft_error());
+
+	ft_init_param(&(env.param));
+	ft_manipulate_data(&env);
 
 	error = 0;
 	error = ft_mlx_tab_treat(env);
 
 
     free_tab(env.tab, env.y_size);
-
     free(env.coord_tab);
 //que se passe t il si vide ?)
 

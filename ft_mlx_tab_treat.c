@@ -17,14 +17,12 @@ int		key_hook(int keycode, t_env *env_ptr)
 	if (keycode == 53)
 		exit(0);
     if (keycode == 95)
-        env_ptr->transfo = 1 - env_ptr->transfo;
-        
+        env_ptr->param.applied_transfo = 1 - env_ptr->param.applied_transfo;
+
 	return (0);
 }
 
-
 //clic qui centre tableau ds fenetre ou cliqué
-
 
 int		mouse_hook(int button, int x, int y, t_env *env_ptr)
 {
@@ -38,7 +36,7 @@ int		mouse_hook(int button, int x, int y, t_env *env_ptr)
 	ft_putnbr(y);
 	ft_putstr("\n\n");
     if (x == 9)
-        env_ptr->transfo = 1 - env_ptr->transfo;
+        env_ptr->param.applied_transfo = 1 - env_ptr->param.applied_transfo;
 	return (0);
 }
 
@@ -51,9 +49,7 @@ int		expose_hook(t_env *env_ptr)
      //   ft_transfo(*env_ptr, &ft_transfo_iso);
 
 
-ft_putstr("\n1\n");
     draw(env_ptr);
-ft_putstr("\n2\n");
 	return (0);
 }
 

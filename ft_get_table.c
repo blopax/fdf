@@ -72,7 +72,7 @@ int		**get_table(int fd, t_env *env_ptr)
 	env_ptr->y_size = i;
 	return (tab);
 }
-
+/*
 t_coord		*get_coord_table(t_env env)
 {
 	int		i;
@@ -91,4 +91,4 @@ t_coord		*get_coord_table(t_env env)
         i++;
 	}
 	return (coord_tab);
-}
+}*/

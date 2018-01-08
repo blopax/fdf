@@ -17,7 +17,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC_PATH = .
 SRC_NAME = ft_utilities.c ft_get_table.c main.c GNLtoChange/get_next_line.c\
-			ft_mlx_tab_treat.c ft_draw_lines.c ft_transfo.c\
+			ft_mlx_tab_treat.c ft_draw_lines.c ft_transfo.c ft_scale.c\
+			ft_rotation_map.c ft_manipulate_data.c
 			 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
