@@ -14,7 +14,8 @@ void	ft_coord_tab_fill(t_env *env_ptr)
 	{
 		env_ptr->coord_tab[i].x = (i % env_ptr->x_size);
 		env_ptr->coord_tab[i].y = (i / env_ptr->x_size);
-		env_ptr->coord_tab[i].z = env_ptr->tab[i / env_ptr->x_size][i % env_ptr->x_size];
+		env_ptr->coord_tab[i].z = env_ptr->tab[i / env_ptr->x_size]
+			[i % env_ptr->x_size] *env_ptr->param.manual_z_scale;
 		env_ptr->coord_tab[i].X_proj = 0;
 		env_ptr->coord_tab[i].Y_proj = 0;
 		i++;

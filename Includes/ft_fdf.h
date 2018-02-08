@@ -49,6 +49,7 @@ typedef struct	s_param
 	double	manual_z_scale;
     int		win_x;
 	int		win_y;
+
 }				t_param;
 
 
@@ -66,6 +67,11 @@ typedef struct	s_env
 {
 	void			*mlx;
 	void			*win;
+	void			*img;
+	char			*img_addr;
+	int				bit_pxl;
+	int				size_line;
+	int				endian;
 	int				**tab;
 	int				x_size;
 	int				y_size;
@@ -75,6 +81,7 @@ typedef struct	s_env
 	double			scale;
 	t_double_coord	origin;
 	t_param			param;
+	int				previous_key;
 }					t_env;
 
 
@@ -120,5 +127,13 @@ void	ft_scale(t_env *env_ptr);
 void	ft_scale_apply(t_env *env_ptr);
 void	ft_manipulate_data(t_env *env_ptr);
 
+void	ft_previous_key(int k, t_env *env_ptr);
+void	ft_keycode_plus(t_env *env_ptr);
+void	ft_keycode_minus(t_env *env_ptr);
+void	ft_reset(t_env *env_ptr);
+
+int		ft_mlx_win_treat(t_env env);
+int		expose_hook(t_env *env_ptr);
+void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour);
 
 #endif

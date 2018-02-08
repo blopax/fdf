@@ -96,11 +96,11 @@ void	ft_init_param(t_param *param)
 	param->y_rotation = 0;
 	param->z_rotation = 0;
 	param->applied_transfo = 0;
-	param->para_cte = 0.2;
+	param->para_cte = 1;
 	param->iso_cte1 = 0.5;
 	param->iso_cte2 = 0.5;
 	param->manual_total_scale = 0.9;
-	param->manual_z_scale = 1.0;
+	param->manual_z_scale = 1;
 	param->win_x = WIN_X;
 	param->win_y = WIN_Y;
 }
@@ -109,10 +109,15 @@ void	ft_init_env(t_env *env_ptr)
 {
 	env_ptr->mlx = 0;
 	env_ptr->win = 0;
+	env_ptr->img = 0;
+//	env_ptr->bit_pxl_ptr = 0;
+//	env_ptr->size_line = 0;
+//	env_ptr->endian = 0;
 	env_ptr->tab = 0;
 	env_ptr->x_size = 0;
 	env_ptr->y_size = 0;
 	env_ptr->coord_tab = 0;
 	env_ptr->double_coord_tab = 0;
 	env_ptr->scale = 1;
+	env_ptr->previous_key = 0;
 }
