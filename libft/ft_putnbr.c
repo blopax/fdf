@@ -16,7 +16,6 @@ void	ft_putnbr(int n)
 {
 	long	result;
 	char	c;
-	int		size;
 
 	result = (long)(n);
 	if (result < 0)

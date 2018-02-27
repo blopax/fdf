@@ -3,7 +3,7 @@
 #include "../minilibx_macos/mlx.h"
 //#include "minilibx_macos/mlx_int.h"
 //#include "minilibx_macos/mlx_new_window.h"
-#include "../libft/includes/libft.h"
+#include "../libft/libft.h"
 #include <math.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -105,9 +105,6 @@ void	free_tab(int **tab, int tab_lines);
 int		ft_mlx_tab_treat(t_env env);
 //fction qui fait tout le mlx
 //renvoie 0 si OK et 1 si error
-
-//GNL
-int	get_next_line(int fd, char **line);
 
 //FCT LIBFT UTILISEES
 //char	**ft_split(char *line, char c);

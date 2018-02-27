@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 15:34:25 by pclement          #+#    #+#             */
-/*   Updated: 2017/11/16 14:25:35 by pclement         ###   ########.fr       */
+/*   Updated: 2018/01/26 18:05:58 by nvergnac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char				**ft_strsplit(char const *s, char c)
 	if (!s)
 		return (NULL);
 	word_count = ft_word_count(s, c);
-	if (!(word_table = (char **)malloc(sizeof(char *) * word_count + 1)))
+	if (!(word_table = (char **)malloc(sizeof(char *) * (word_count + 1))))
 		return (NULL);
 	word_index = 0;
 	while (word_index < word_count)

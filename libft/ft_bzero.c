@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 10:49:07 by pclement          #+#    #+#             */
-/*   Updated: 2017/11/13 10:54:27 by pclement         ###   ########.fr       */
+/*   Updated: 2018/01/03 14:27:31 by nvergnac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_bzero(void *b, size_t len)
 {
-	ft_memset(b,0,len);
+	ft_memset(b, 0, len);
 }
