@@ -13,7 +13,14 @@
 # define FT_FDF_H
 # define WIN_X 840
 # define WIN_Y 840
-# define BASE_COLOR 0xFFFFFF
+# define BLUE 0xFF0000
+# define GREEN 0x00FF00
+# define RED 0x0000FF
+# define WHITE 0xFFFFFF
+# define BLUE_HGT -10.0
+# define GREEN_HGT 0.0
+# define RED_HGT 10.0
+# define WHITE_HGT 100.0
 
 typedef struct	s_coord
 {
@@ -49,7 +56,11 @@ typedef struct	s_param
 	double	manual_z_scale;
     int		win_x;
 	int		win_y;
-
+	int		colour_mode;
+	double	blue_hgt;
+	double	green_hgt;
+	double	red_hgt;
+	double	white_hgt;
 }				t_param;
 
 
@@ -61,6 +72,8 @@ typedef struct	s_XY_info
     double		Y_max;
     double		Y_min;
     double		Y_width;
+	double		z_min;
+	double		z_max;
 }				t_XY_info;
 
 typedef struct	s_env
@@ -113,7 +126,7 @@ void    ft_double_transfo(t_env *env_ptr);
 t_double_coord		*ft_rotation(t_double_coord *initial, t_double_coord *origin, char c, int angle);
 
 
-int     ft_colour(int z);
+int     ft_colour(t_env env, int x, int y, t_coord point0, t_coord point1);
 void	draw_lines(t_env env, int x1, int y1, int z1, int x2, int y2, int z2);
 void	draw(t_env *env_ptr);
 
@@ -132,5 +145,6 @@ void	ft_reset(t_env *env_ptr);
 int		ft_mlx_win_treat(t_env env);
 int		expose_hook(t_env *env_ptr);
 void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour);
+double		ft_2D_distance(int x0, int y0, int x1, int y1);
 
 #endif

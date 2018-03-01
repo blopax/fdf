@@ -18,8 +18,9 @@ CFLAGS = -Wall -Wextra -Werror -g3
 SRC_PATH = .
 SRC_NAME = ft_utilities.c ft_get_table.c main.c\
 			ft_mlx_tab_treat.c ft_draw_lines.c ft_transfo.c ft_scale.c\
-			ft_rotation_map.c ft_manipulate_data.c ft_mlx_tab_treat_utilities.c
-			 
+			ft_rotation_map.c ft_manipulate_data.c ft_mlx_tab_treat_utilities.c\
+			ft_draw_utilities.c
+
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 OBJ_PATH = .

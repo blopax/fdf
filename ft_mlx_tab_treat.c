@@ -14,7 +14,7 @@ int		key_hook(int keycode, t_env *env_ptr)
 
 	if (keycode == 53)
 		exit(0);
-	if (!(keycode == 35 || keycode == 41 || keycode == 15 || keycode == 17))
+	if (!(keycode == 35 || keycode == 41 || keycode == 15 || keycode == 17 || keycode == 8))
 	{
 		ft_previous_key(keycode, env_ptr);
 		return (0);
@@ -25,6 +25,8 @@ int		key_hook(int keycode, t_env *env_ptr)
 		ft_keycode_minus(env_ptr);
 	if (keycode == 15)
 		ft_reset(env_ptr);
+	if (keycode == 8)
+		(env_ptr->param).colour_mode = ((env_ptr->param).colour_mode + 1) % 3;
 	if (keycode == 17)
 		(env_ptr->param).applied_transfo = 1 - (env_ptr->param).applied_transfo;
 	ft_manipulate_data(env_ptr);

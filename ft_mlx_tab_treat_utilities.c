@@ -1,7 +1,5 @@
 #include "Includes/ft_fdf.h"
 
-// touche qui change couleurs (tableau ou degrade proportionnel)
-
 void	ft_previous_key(int k, t_env *env_ptr)
 {
 	if (k == 7)
@@ -26,6 +24,8 @@ void	ft_previous_key(int k, t_env *env_ptr)
 		env_ptr->previous_key = 'v';//vertical win_y
 	else if (k == 12)
 		env_ptr->previous_key = 'a';//all si reset (touche suivante ou all si a)
+	else if (k == 8)
+		env_ptr->previous_key = 'c';//colour
 	else
 	{
 		if (!(k == 35 || k == 41))
@@ -106,5 +106,7 @@ void	ft_reset(t_env *env_ptr)
 		(&(env_ptr->param))->win_x = WIN_X;
 	if (env_ptr->previous_key == 'v')
 		(&(env_ptr->param))->win_y = WIN_Y;
+	if (env_ptr->previous_key == 'v')
+		(&(env_ptr->param))->colour_mode = 0;
 }
 

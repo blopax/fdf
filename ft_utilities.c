@@ -103,6 +103,7 @@ void	ft_init_param(t_param *param)
 	param->manual_z_scale = 1;
 	param->win_x = WIN_X;
 	param->win_y = WIN_Y;
+	param->colour_mode = 0;
 }
 
 void	ft_init_env(t_env *env_ptr)

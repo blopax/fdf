@@ -2,88 +2,82 @@
 
 int     max(int a, int b)
 {
-    if (a <= b)
-        return (b);
-    else
-        return (a);
+	if (a <= b)
+		return (b);
+	else
+		return (a);
 }
 
 int     min(int a, int b)
 {
-    if (a <= b)
-        return (a);
-    else
-        return (b);
+	if (a <= b)
+		return (a);
+	else
+		return (b);
 }
 
-//verifier sortie de colour int (yes) ? idem que printf faire un tableau et dire si z compris entre a et b alors return couleur correspondante ds tableau
-int     ft_colour(int z)
+void	ft_height_min_max(t_env *env_ptr)
 {
+	int		i;
 
-/*
-1) obtenir zmax et zmin au debut (en double)
-parcourir tableau double_coord
---> ca on peut le faire avec  fonction void ds ft_colour.c
+	i = 0;
+	env_ptr->XY_info.z_min = env_ptr->double_coord_tab[0].z;
+	env_ptr->XY_info.z_max = env_ptr->double_coord_tab[0].z;
+	while (i < env_ptr-> x_size * env_ptr->y_size)
+	{
+		if (env_ptr->double_coord_tab[i].z < env_ptr->XY_info.z_min)
+			env_ptr->XY_info.z_min = env_ptr->double_coord_tab[i].z;
+		if (env_ptr->double_coord_tab[i].z > env_ptr->XY_info.z_max)
+			env_ptr->XY_info.z_max = env_ptr->double_coord_tab[i].z;
+		i++;
+	}
+	
+	if (env_ptr->param.colour_mode <= 1) //ABSOLUTE
+	{
+		env_ptr->param.blue_hgt = BLUE_HGT;
+		env_ptr->param.green_hgt = GREEN_HGT;
+		env_ptr->param.red_hgt = RED_HGT;
+		env_ptr->param.white_hgt = WHITE_HGT;
+	}
+	else if (env_ptr->param.colour_mode == 2)
+	{
+			env_ptr->param.blue_hgt = env_ptr->XY_info.z_min;
+			env_ptr->param.green_hgt = env_ptr->XY_info.z_min + (env_ptr->XY_info.z_max - env_ptr->XY_info.z_min) / 3.0;
+			env_ptr->param.red_hgt = env_ptr->XY_info.z_min + 2.0 * (env_ptr->XY_info.z_max - env_ptr->XY_info.z_min) / 3.0;
+			env_ptr->param.white_hgt = env_ptr->XY_info.z_max;
+	}
+}
 
-2) determiner hauteur z (attention c avec Xproj et Yproj)
-ds plot line ac X0 X1 Y0 Y1 noter z0 et z1 
-if x0 == x1 then z = z0 + (z1 - z0) * (y - y0) / (y1 - y0)
-else  z = z0 + (z1 - z0) * (x - x0) / (x1 - x0)
---> on utilise coord x et y pour faire ca donc on fait correspondance ac X_proj et Y_proj
-ft_height(x, y, t_double_coord double_init0, t_double_coord double_init1)
---> arranger Bresenheim en fonction ds ft_drawlines
+double	ft_height(int x, int y,  t_coord point0, t_coord point1)
+{
+	double	distance_proportion;
 
-3) Determiner couleur en fonction z
+	if (point0.X_proj == point1.X_proj && point0.Y_proj == point1.Y_proj)
+		return (point0.z);
+	else
+	{
+		if (ft_2D_distance(point0.X_proj, point0.Y_proj, point1.X_proj, point1.Y_proj) == 0)
+			distance_proportion = 1.0;
+		else
+			distance_proportion =(double)ft_2D_distance(point0.X_proj, point0.Y_proj, x, y) / (double)ft_2D_distance(point0.X_proj, point0.Y_proj, point1.X_proj, point1.Y_proj);
+	}
 
-ABSOLUE
---> a voir si on laisse la personne mettre les couleurs ou si on a une sorte de zscale qui change les seuils des couleurs:
-= bleu nuit inferieur a -1000 --> -1000 = bleu nuit
-= vert degrade entre - 100 et 500 --> 300 = vert
-= rouge/marrron degrade entre 500 et 3500 --> 2000 = Rouge
-= blanc superieur a 3500 --> 3500 = Blanc
+	return(point0.z + (int)(distance_proportion * (double)(point1.z - point0.z)));
+}
 
-et on fait %
-
-exp si z = 3000 
-colour = rouge * (1 - (3000 - 2000) / (3500 - 2000)) + blanc * (1 - (3500 - 3000)/(3500 - 2000)) = rouge * 33% + blanc * 66%
---> utiliser val absolue 
-
-exp si z = -500
-colour = blue (1 - (-500 - -1000) / (300 - -1000) + vert (1 - (300 - -500) / (300 - -1000) = blue * 60% + vert * 40 %
-
-RELATIF
-entre -100 % et 100 % on fait positif et negatif ou entre 0 et 100%
-
-z max
-z min
-comparer 1 si zmax != zmin sinon dire que tout est Blanc
-voir si 
-
-si entre 0 et 100%
-(z - zmin) / (z max - z min)
-0% = BLUE 
-33% GREEN
-66% RED
-100% = Blanc
-
-Si entre -100% et 100%
-si z = 0 GREEN
-si z < 0
-(z) / (zmin)
-si z > 0
-z / zmax
+int		ft_colour(t_env env, int x, int y, t_coord point0, t_coord point1)
+{
+	int z;
+	int colour;
 
 
-- 100% = BLUE
-0 % = GREEN
-50% = RED
-100% = BLANC
+	z = ft_height(x, y, point0, point1);
 
+	if (env.param.colour_mode == 0 || (env.param.colour_mode == 1 && env.XY_info.z_max == env.XY_info.z_min))
+		return (WHITE);
 
-
-*/
-	z = 0;
-    return (0xFFFFFF);
+	colour = (int)(BLUE * (1 - min(max((z - env.param.blue_hgt)/(env.param.green_hgt - env.param.blue_hgt), 0), 1)) + GREEN * (1 - min(max((z - env.param.green_hgt)/(env.param.blue_hgt - env.param.green_hgt), 0), 1) -  min(max((z - env.param.green_hgt)/(env.param.red_hgt - env.param.green_hgt), 0), 1))+ RED * (1 - min(max((z - env.param.red_hgt)/(env.param.green_hgt - env.param.red_hgt), 0), 1) -  min(max((z - env.param.red_hgt)/(env.param.white_hgt - env.param.red_hgt), 0), 1))+ WHITE * (1 - min(max((z - env.param.white_hgt)/(env.param.red_hgt - env.param.white_hgt), 0), 1)));
+	return (colour);
 }
 
 void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour)
@@ -100,105 +94,41 @@ void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour)
 	}
 }
 
-
-/*void	plot_line(t_env env, int x0, int y0, int x1, int y1)
+void plot_line (t_env env, t_coord point0, t_coord point1)
 {
-	int dx =  abs (x1 - x0), sx = x0 < x1 ? 1 : -1;
-	int dy = -abs (y1 - y0), sy = y0 < y1 ? 1 : -1; 
-	int err = dx + dy, e2; // error value e_xy
+	int x, y, dx, dy, sx, sy, err, e2;
 
-	mlx_pixel_put(env.mlx, env.win, x0, y0, 0xFFFFFF);
-//	mlx_put_pxl_to_img(env, x0, y0, 0xFFFFFF);
-	while (x0 != x1 || y0 != y1) 
+	x = point0.X_proj;
+	y = point0.Y_proj;
+	dx =  abs (point1.X_proj - x);
+	sx = x < point1.X_proj ? 1 : -1;
+	dy = -abs (point1.Y_proj - y);
+	sy = y < point1.Y_proj ? 1 : -1;
+	err = dx + dy; /* error value e_xy */
+
+	mlx_put_pxl_to_img(env, x, y, ft_colour(env, x, y, point0, point1));
+
+	while (x != point1.X_proj || y != point1.Y_proj) 
 	{  
-		mlx_pixel_put(env.mlx, env.win, x0, y0, 0xFFFFFF);
-//		mlx_put_pxl_to_img(env, x0, y0, 0xFFFFFF);
+		mlx_put_pxl_to_img(env, x, y, ft_colour(env, x, y, point0, point1));
 		e2 = 2 * err;
-		if (e2 >= dy) { err += dy; x0 += sx; } // e_xy+e_x > 0 
-		if (e2 <= dx) { err += dx; y0 += sy; } // e_xy+e_y < 0 
+		if (e2 >= dy) { err += dy; x += sx; } /* e_xy+e_x > 0 */
+		if (e2 <= dx) { err += dx; y += sy; } /* e_xy+e_y < 0 */
 	}
 }
 
 void	draw(t_env *env_ptr)
 {
-    int     i;
+	int     i;
 
 	i = 0;
-	ft_putnbr(env_ptr->x_size * env_ptr->y_size);
-    if (i < env_ptr->x_size * env_ptr->y_size)
-    {
-        if ((i % env_ptr->x_size) + 1 < env_ptr->x_size)
-		{
-			plot_line(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj,
-				env_ptr->coord_tab[i + 1].X_proj, env_ptr->coord_tab[i + 1].Y_proj);
-		}
-        if ((i / env_ptr->x_size) + 1 < env_ptr->y_size)
-		{
-			plot_line(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj,
-				env_ptr->coord_tab[i + env_ptr->x_size].X_proj, env_ptr->coord_tab[i + env_ptr->x_size].Y_proj);
-		}
-        i++;
-    }
-}
-*/
-
-
-
-
-/*if (env_ptr->coord_tab[i].X_proj != env_ptr->coord_tab[i + 1].X_proj || env_ptr->coord_tab[i].Y_proj != env_ptr->coord_tab[i + 1].Y_proj)
-			{
-				draw_lines(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj, env_ptr->coord_tab
-					    [i].z, env_ptr->coord_tab[i + 1].X_proj, env_ptr->coord_tab[i + 1].Y_proj, env_ptr->coord_tab[i+1].z);
-			}
-        }
-        if ((i / env_ptr->x_size) + 1 < env_ptr->y_size)
-        {
-
-
-
-			if (env_ptr->coord_tab[i].X_proj != env_ptr->coord_tab[i + env_ptr->x_size].X_proj || env_ptr->coord_tab[i].Y_proj != env_ptr->coord_tab[i + env_ptr->x_size].Y_proj)
-			{
-				draw_lines(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj, env_ptr->coord_tab[i].z, env_ptr->coord_tab[i + env_ptr->x_size].X_proj, env_ptr->coord_tab[i + env_ptr->x_size].Y_proj, env_ptr->coord_tab[i + env_ptr->x_size].z);
-			}*/
-
-
-void plot_line (t_env env, int x0, int y0, int x1, int y1)
-{
-	
-	int dx =  abs (x1 - x0), sx = x0 < x1 ? 1 : -1;
-	int dy = -abs (y1 - y0), sy = y0 < y1 ? 1 : -1; 
-	int err = dx + dy, e2; /* error value e_xy */
-
-//	mlx_pixel_put(env.mlx, env.win, x0, y0, 0xFFFFFF);
-	mlx_put_pxl_to_img(env, x0, y0, 0xFFFFFF);
-
-	while (x0 != x1 || y0 != y1) 
-	{  
-//		mlx_pixel_put(env.mlx, env.win, x0, y0, 0xFFFFFF);
-		mlx_put_pxl_to_img(env, x0, y0, 0xFFFFFF);
-		e2 = 2 * err;
-		if (e2 >= dy) { err += dy; x0 += sx; } /* e_xy+e_x > 0 */
-		if (e2 <= dx) { err += dx; y0 += sy; } /* e_xy+e_y < 0 */
+	ft_height_min_max(env_ptr);
+	while (i < env_ptr->x_size * env_ptr->y_size)
+	{
+		if ((i % env_ptr->x_size) + 1 < env_ptr->x_size)
+			plot_line(*env_ptr, env_ptr->coord_tab[i], env_ptr->coord_tab[i + 1]);
+		if ((i / env_ptr->x_size) + 1 < env_ptr->y_size)
+			plot_line(*env_ptr, env_ptr->coord_tab[i], env_ptr->coord_tab[i + env_ptr->x_size]);
+		i++;
 	}
-}
-
-void	draw(t_env *env_ptr)
-{
-    int     i;
-
-	i = 0;
-    while (i < env_ptr->x_size * env_ptr->y_size)
-    {
-        if ((i % env_ptr->x_size) + 1 < env_ptr->x_size)
-		{
-			plot_line(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj,
-				env_ptr->coord_tab[i + 1].X_proj, env_ptr->coord_tab[i + 1].Y_proj);
-		}
-        if ((i / env_ptr->x_size) + 1 < env_ptr->y_size)
-		{
-			plot_line(*env_ptr, env_ptr->coord_tab[i].X_proj, env_ptr->coord_tab[i].Y_proj,
-				env_ptr->coord_tab[i + env_ptr->x_size].X_proj, env_ptr->coord_tab[i + env_ptr->x_size].Y_proj);
-		}
-        i++;
-    }
 }
