@@ -31,7 +31,7 @@ int		main(int argc, char **argv)
 
 	if (error != 0)
 		return (ft_error());
-//	sleep(100);
+	sleep(100);
 //nettoyé --> 0  avant d'utiliser ft_mlx_tab_treat
 	return (0);
 }

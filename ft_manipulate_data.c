@@ -70,6 +70,8 @@ void	ft_int_transfo(t_env *env_ptr)
 
 void	ft_manipulate_data(t_env *env_ptr)
 {
+	if (env_ptr->coord_tab)
+		free(env_ptr->coord_tab);
 	ft_coord_tab_fill(env_ptr);
 	ft_copy_double_tab(env_ptr);
 	ft_origin_fill(env_ptr);
