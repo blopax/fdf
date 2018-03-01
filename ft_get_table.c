@@ -65,7 +65,8 @@ int		**get_table(int fd, t_env *env_ptr)
 		if (env_ptr->x_size != line_size)
 		{
 			ft_error();
-			return (NULL);
+			free(tab);
+			exit (1);
 		}
 		i++;
 	}

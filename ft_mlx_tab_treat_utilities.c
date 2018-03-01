@@ -24,8 +24,6 @@ void	ft_previous_key(int k, t_env *env_ptr)
 		env_ptr->previous_key = 'v';//vertical win_y
 	else if (k == 12)
 		env_ptr->previous_key = 'a';//all si reset (touche suivante ou all si a)
-	else if (k == 8)
-		env_ptr->previous_key = 'c';//colour
 	else
 	{
 		if (!(k == 35 || k == 41))
