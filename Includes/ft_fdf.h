@@ -1,8 +1,6 @@
 #ifndef FT_FDF_H
 
 #include "../minilibx_macos/mlx.h"
-//#include "minilibx_macos/mlx_int.h"
-//#include "minilibx_macos/mlx_new_window.h"
 #include "../libft/libft.h"
 #include <math.h>
 #include <unistd.h>
@@ -11,8 +9,8 @@
 #include <fcntl.h>
 
 # define FT_FDF_H
-# define WIN_X 840
-# define WIN_Y 840
+# define WIN_X 640
+# define WIN_Y 640
 # define BLUE 0xFF0000
 # define GREEN 0x00FF00
 # define RED 0x0000FF
@@ -40,8 +38,6 @@ typedef struct	s_double_coord
     double		X_proj;
     double		Y_proj;
 }				t_double_coord;
-//mettre ds struct X et Y parallele et iso et appeler fonctions qui remplissent
-//ajouter define tailles fenetre zr faire fonction draw ac pas qui correspond
 
 typedef struct	s_param
 {
@@ -95,6 +91,8 @@ typedef struct	s_env
 	t_double_coord	origin;
 	t_param			param;
 	int				previous_key;
+	t_coord			point0;
+	t_coord			point1;
 }					t_env;
 
 
@@ -116,11 +114,6 @@ void	free_tab(int **tab, int tab_lines);
 //free toutes les lignes de tab jusqu a tablines a voir si on balance la size de tab ou pasi
 
 int		ft_mlx_tab_treat(t_env env);
-//fction qui fait tout le mlx
-//renvoie 0 si OK et 1 si error
-
-//FCT LIBFT UTILISEES
-//char	**ft_split(char *line, char c);
 
 void    ft_double_transfo(t_env *env_ptr);
 t_double_coord		*ft_rotation(t_double_coord *initial, t_double_coord *origin, char c, int angle);
@@ -145,6 +138,7 @@ void	ft_reset(t_env *env_ptr);
 int		ft_mlx_win_treat(t_env env);
 int		expose_hook(t_env *env_ptr);
 void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour);
-double		ft_2D_distance(int x0, int y0, int x1, int y1);
+double	ft_2D_distance(int x0, int y0, int x1, int y1);
+void	plot_line (t_env env, t_coord point0, t_coord point1);
 
 #endif

@@ -1,7 +1,5 @@
 #include "Includes/ft_fdf.h"
 
-// touche qui change couleurs (tableau ou degrade proportionnel)
-
 int		key_hook(int keycode, t_env *env_ptr)
 {
 	ft_putstr("\nkeycode=\t");
@@ -33,6 +31,7 @@ int		key_hook(int keycode, t_env *env_ptr)
 	if ((env_ptr->previous_key == 'h' || env_ptr->previous_key == 'v') && (keycode == 35 || keycode == 41))
 	{
 		mlx_destroy_window(env_ptr->mlx, env_ptr->win);
+		ft_manipulate_data(env_ptr);
 		ft_mlx_tab_treat(*env_ptr);
 	}
 	expose_hook(env_ptr);
@@ -52,20 +51,25 @@ int		mouse_hook(int button, int x, int y, t_env *env_ptr)
 	ft_putstr("\ny=\t");
 	ft_putnbr(y);
 	ft_putstr("\n\n");
-	x = env_ptr->param.win_x;
+
+	if (button == 4)
+		(env_ptr->param).manual_total_scale /= 1.1;
+	if (button == 5)
+		(env_ptr->param).manual_total_scale *= 1.1;
+	ft_manipulate_data(env_ptr);
+	expose_hook(env_ptr);
 	return (0);
 }
 
 int		expose_hook(t_env *env_ptr)
 {
-//	mlx_clear_window(env_ptr->mlx, env_ptr->win);
-
 	if (env_ptr->img)
 		mlx_destroy_image(env_ptr->mlx, env_ptr->img);
 
 	env_ptr->img = mlx_new_image(env_ptr->mlx, env_ptr->param.win_y, env_ptr->param.win_x);
 
 	env_ptr->img_addr = mlx_get_data_addr(env_ptr->img, &(env_ptr->bit_pxl), &(env_ptr->size_line), &(env_ptr->endian));
+
 	draw(env_ptr);
 	mlx_put_image_to_window(env_ptr->mlx, env_ptr->win, env_ptr->img, 0, 0);
 	return (0);

@@ -57,6 +57,7 @@ void	ft_scale(t_env *env_ptr)
 	int		win_x;
 	int		win_y;
 
+
 	ft_X_width(env_ptr);
 	ft_Y_width(env_ptr);
 	X_width = env_ptr->XY_info.X_width;
@@ -64,6 +65,7 @@ void	ft_scale(t_env *env_ptr)
 	scale_coef = env_ptr->param.manual_total_scale;
 	win_x = env_ptr->param.win_x;
 	win_y = env_ptr->param.win_y;
+
 	if (X_width == 0 && Y_width == 0)
 		env_ptr->scale = 1;
 	else if (X_width == 0)
@@ -93,7 +95,7 @@ void	ft_scale_apply(t_env *env_ptr)
 	i = 0;
 	while (i < env_ptr->x_size * env_ptr->y_size)
 	{
-		env_ptr->double_coord_tab[i].X_proj = -env_ptr->XY_info.X_min * env_ptr->scale + (win_x - X_width) / 2.0 + (env_ptr->double_coord_tab[i].X_proj)  * env_ptr->scale;
+		env_ptr->double_coord_tab[i].X_proj = -env_ptr->XY_info.X_min * env_ptr->scale + (win_x - X_width) / 2.0 + (env_ptr->double_coord_tab[i].X_proj) * env_ptr->scale;
 		env_ptr->double_coord_tab[i].Y_proj = -env_ptr->XY_info.Y_min *env_ptr->scale + (win_y - Y_width) / 2.0 + (env_ptr->double_coord_tab[i].Y_proj) * env_ptr->scale;
 		i++;
 	}

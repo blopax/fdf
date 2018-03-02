@@ -79,6 +79,4 @@ void	ft_manipulate_data(t_env *env_ptr)
 	ft_double_transfo(env_ptr);
 	ft_scale_apply(env_ptr);
 	ft_int_transfo(env_ptr);
-//	ft_show_double_coord_tab(env_ptr->double_coord_tab, env_ptr->x_size, env_ptr->y_size);
-//	ft_show_coord_tab(env_ptr->coord_tab, env_ptr->x_size, env_ptr->y_size);
 }

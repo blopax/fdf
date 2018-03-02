@@ -31,8 +31,7 @@ void	ft_height_min_max(t_env *env_ptr)
 			env_ptr->XY_info.z_max = env_ptr->double_coord_tab[i].z;
 		i++;
 	}
-	
-	if (env_ptr->param.colour_mode <= 1) //ABSOLUTE
+	if (env_ptr->param.colour_mode <= 1)
 	{
 		env_ptr->param.blue_hgt = BLUE_HGT;
 		env_ptr->param.green_hgt = GREEN_HGT;
@@ -61,7 +60,6 @@ double	ft_height(int x, int y,  t_coord point0, t_coord point1)
 		else
 			distance_proportion =(double)ft_2D_distance(point0.X_proj, point0.Y_proj, x, y) / (double)ft_2D_distance(point0.X_proj, point0.Y_proj, point1.X_proj, point1.Y_proj);
 	}
-
 	return(point0.z + (int)(distance_proportion * (double)(point1.z - point0.z)));
 }
 
@@ -70,12 +68,9 @@ int		ft_colour(t_env env, int x, int y, t_coord point0, t_coord point1)
 	int z;
 	int colour;
 
-
 	z = ft_height(x, y, point0, point1);
-
 	if (env.param.colour_mode == 0 || (env.param.colour_mode == 1 && env.XY_info.z_max == env.XY_info.z_min))
 		return (WHITE);
-
 	colour = (int)(BLUE * (1 - min(max((z - env.param.blue_hgt)/(env.param.green_hgt - env.param.blue_hgt), 0), 1)) + GREEN * (1 - min(max((z - env.param.green_hgt)/(env.param.blue_hgt - env.param.green_hgt), 0), 1) -  min(max((z - env.param.green_hgt)/(env.param.red_hgt - env.param.green_hgt), 0), 1))+ RED * (1 - min(max((z - env.param.red_hgt)/(env.param.green_hgt - env.param.red_hgt), 0), 1) -  min(max((z - env.param.red_hgt)/(env.param.white_hgt - env.param.red_hgt), 0), 1))+ WHITE * (1 - min(max((z - env.param.white_hgt)/(env.param.red_hgt - env.param.white_hgt), 0), 1)));
 	return (colour);
 }
@@ -87,14 +82,14 @@ void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour)
 	if (y >= 0 && y < env.param.win_y && x >= 0 && x < env.param.win_x)
 	{
 		r = ((y * env.param.win_x + x)* 4);
-		env.img_addr[r] = colour / (256 * 256) % 256; // BLUE
-		env.img_addr[r + 1] = (colour / 256) % 256; // GREEN
-		env.img_addr[r + 2] = colour % 256; // RED
+		env.img_addr[r] = colour / (256 * 256) % 256;
+		env.img_addr[r + 1] = (colour / 256) % 256;
+		env.img_addr[r + 2] = colour % 256;
 		env.img_addr[r + 3] = 0;
 	}
 }
 
-void plot_line (t_env env, t_coord point0, t_coord point1)
+void	plot_line (t_env env, t_coord point0, t_coord point1)
 {
 	int x, y, dx, dy, sx, sy, err, e2;
 
@@ -104,16 +99,23 @@ void plot_line (t_env env, t_coord point0, t_coord point1)
 	sx = x < point1.X_proj ? 1 : -1;
 	dy = -abs (point1.Y_proj - y);
 	sy = y < point1.Y_proj ? 1 : -1;
-	err = dx + dy; /* error value e_xy */
+	err = dx + dy;
 
 	mlx_put_pxl_to_img(env, x, y, ft_colour(env, x, y, point0, point1));
-
 	while (x != point1.X_proj || y != point1.Y_proj) 
 	{  
 		mlx_put_pxl_to_img(env, x, y, ft_colour(env, x, y, point0, point1));
 		e2 = 2 * err;
-		if (e2 >= dy) { err += dy; x += sx; } /* e_xy+e_x > 0 */
-		if (e2 <= dx) { err += dx; y += sy; } /* e_xy+e_y < 0 */
+		if (e2 >= dy)
+		{
+			err += dy;
+			x += sx;
+		}
+		if (e2 <= dx)
+		{
+			err += dx;
+			y += sy;
+		}
 	}
 }
 
