@@ -95,7 +95,7 @@ void	ft_scale_apply(t_env *env_ptr)
 	i = 0;
 	while (i < env_ptr->x_size * env_ptr->y_size)
 	{
-		env_ptr->double_coord_tab[i].X_proj = -env_ptr->XY_info.X_min * env_ptr->scale + (win_x - X_width) / 2.0 + (env_ptr->double_coord_tab[i].X_proj) * env_ptr->scale;
+		env_ptr->double_coord_tab[i].X_proj = -env_ptr->XY_info.X_min * env_ptr->scale + (win_x - X_width) / 2.0 + (env_ptr->double_coord_tab[i].X_proj)  * env_ptr->scale;
 		env_ptr->double_coord_tab[i].Y_proj = -env_ptr->XY_info.Y_min *env_ptr->scale + (win_y - Y_width) / 2.0 + (env_ptr->double_coord_tab[i].Y_proj) * env_ptr->scale;
 		i++;
 	}

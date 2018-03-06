@@ -19,16 +19,18 @@ int     min(int a, int b)
 void	ft_height_min_max(t_env *env_ptr)
 {
 	int		i;
+	double		adjusted_z;
 
 	i = 0;
-	env_ptr->XY_info.z_min = env_ptr->double_coord_tab[0].z;
-	env_ptr->XY_info.z_max = env_ptr->double_coord_tab[0].z;
+	adjusted_z = env_ptr->double_coord_tab[i].z;// * env_ptr->param.manual_z_scale;
+	env_ptr->XY_info.z_min = env_ptr->double_coord_tab[0].z * adjusted_z;
+	env_ptr->XY_info.z_max = env_ptr->double_coord_tab[0].z * adjusted_z;
 	while (i < env_ptr-> x_size * env_ptr->y_size)
 	{
-		if (env_ptr->double_coord_tab[i].z < env_ptr->XY_info.z_min)
-			env_ptr->XY_info.z_min = env_ptr->double_coord_tab[i].z;
-		if (env_ptr->double_coord_tab[i].z > env_ptr->XY_info.z_max)
-			env_ptr->XY_info.z_max = env_ptr->double_coord_tab[i].z;
+		if (env_ptr->double_coord_tab[i].z * adjusted_z < env_ptr->XY_info.z_min)
+			env_ptr->XY_info.z_min = env_ptr->double_coord_tab[i].z * adjusted_z;
+		if (env_ptr->double_coord_tab[i].z * adjusted_z > env_ptr->XY_info.z_max)
+			env_ptr->XY_info.z_max = env_ptr->double_coord_tab[i].z * adjusted_z;
 		i++;
 	}
 	if (env_ptr->param.colour_mode <= 1)
@@ -60,12 +62,12 @@ double	ft_height(int x, int y,  t_coord point0, t_coord point1)
 		else
 			distance_proportion =(double)ft_2D_distance(point0.X_proj, point0.Y_proj, x, y) / (double)ft_2D_distance(point0.X_proj, point0.Y_proj, point1.X_proj, point1.Y_proj);
 	}
-	return(point0.z + (int)(distance_proportion * (double)(point1.z - point0.z)));
+	return((double)point0.z + (double)(distance_proportion * (double)(point1.z - point0.z)));
 }
 
 int		ft_colour(t_env env, int x, int y, t_coord point0, t_coord point1)
 {
-	int z;
+	double z;
 	int colour;
 
 	z = ft_height(x, y, point0, point1);
@@ -101,10 +103,12 @@ void	plot_line (t_env env, t_coord point0, t_coord point1)
 	sy = y < point1.Y_proj ? 1 : -1;
 	err = dx + dy;
 
+//	mlx_pixel_put(env.mlx, env.win, x, y, 0XFFFFFF);
 	mlx_put_pxl_to_img(env, x, y, ft_colour(env, x, y, point0, point1));
 	while (x != point1.X_proj || y != point1.Y_proj) 
 	{  
 		mlx_put_pxl_to_img(env, x, y, ft_colour(env, x, y, point0, point1));
+//	mlx_pixel_put(env.mlx, env.win, x, y, 0XFFFFFF);
 		e2 = 2 * err;
 		if (e2 >= dy)
 		{
@@ -124,7 +128,6 @@ void	draw(t_env *env_ptr)
 	int     i;
 
 	i = 0;
-	ft_height_min_max(env_ptr);
 	while (i < env_ptr->x_size * env_ptr->y_size)
 	{
 		if ((i % env_ptr->x_size) + 1 < env_ptr->x_size)

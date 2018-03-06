@@ -1,63 +1,96 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pclement <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/13 18:57:53 by pclement          #+#    #+#              #
-#    Updated: 2017/11/24 17:26:56 by nvergnac         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = fdf
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3
+#compiler
+CC = clang
+CFLAGS = -Werror -Wall -Wextra
 
-SRC_PATH = .
-SRC_NAME = ft_utilities.c ft_get_table.c main.c\
-			ft_mlx_tab_treat.c ft_draw_lines.c ft_transfo.c ft_scale.c\
-			ft_rotation_map.c ft_manipulate_data.c ft_mlx_tab_treat_utilities.c\
-			ft_draw_utilities.c
+#flags for preprocessor
+CPPFLAGS = -Iincludes/ -Ilibft/
+LFLAGS = -Llibft -lft -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
+LFLAGS_DEBUG = -Llibft -lft-debug -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
 
-SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+#deps
+DEPENDENCIES = Includes/ft_fdf.h Makefile
 
-OBJ_PATH = .
-OBJ_NAME = $(SRC_NAME:.c=.o)
-OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+#libs
+LIB_PATH = libft/
+LIB_NAME = libft.a
+LIB = $(addprefix $(LIB_PATH), $(LIB_NAME))
 
-CPPFLAGS = -I .
-#*. peut etre remplace par include ou le nom du dossier ou se trouvent les #include *
+#srcs
+SRC_PATH =
+SRC = ft_utilities.c ft_get_table.c main.c\
+		ft_mlx_tab_treat.c ft_draw_lines.c ft_transfo.c ft_scale.c\
+		ft_rotation_map.c ft_manipulate_data.c ft_mlx_tab_treat_utilities.c\
+		ft_draw_utilities.c
 
-LDFLAGS = -Lminilibx_macos -framework OpenGL -framework AppKit
+#obj
+OBJ_PATH = obj/
+OBJ_NAME = $(SRC:.c=.o)
+OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-# *dossier de la lib*
-LDLIBS = -lmlx
-#*nom librairie par exp lft pour libft*
+# Debug variables
+DBG_CFLAGS = -g
+DBG_LIB_NAME = libft-debug.a
+DBG_NAME = $(NAME)-debug
+DBG_PATH = debug/
+DBG_OBJ = $(addprefix $(DBG_PATH), $(OBJ_NAME))
+DBG_LIB = $(addprefix $(LIB_PATH), $(LIB_PATH)-debug.a)
+
+# Colours
+CYAN = \x1b[36m
+GREEN = \x1b[32m
+YELLOW = \x1b[33m
+END_COLOUR = \x1b[0m
+
+#disable implicit rules
+.SUFFIXES:
+.PHONY: clean fclean all re
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(LDFLAGS) $(LDLIBS) $(CPPFLAGS) -g3  libft/libft.a  $^ -o $@
+	$(CC) $(LFLAGS) $(OBJ) -o $@
+	@echo "$(GREEN) Binary compilation succesfull$(END_COLOUR)"
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@mkdir (OBJ_PATH) 2> /dev/null || true
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c -g3 $< -o $@
+$(OBJ_PATH)%.o: %.c $(DEPENDENCIES) $(LIB)
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
-# 1e ligne cree une regle par fichier .o et chaque fichier va tester le .c correspondant
-# 2e ligne cree dossier correspondant pour lettre les .o le 2> /dev/null est la pour eviter les messages du type le dossier existe deja et  true pour que makefile continue meme si dossier existe deja 
+$(LIB): libft/*.c libft/libft.h libft/Makefile
+	@echo "$(CYAN) Compiling library $(END_COLOUR)"
+	@$(MAKE) -C libft/
 
-#	si on veut rajouter une commande librairie ms pas ac obj mais dossier lib
-#	ar rc libft.a $(dossier lib)
-#	ranlib libft.a
+debug: $(DBG_OBJ)
+	$(CC) $(LFLAGS_DEBUG) $(DBG_OBJ) $(DBG_CFLAGS) -o $(DBG_NAME)
+	@echo "$(GREEN) Binary compilation succesfull$(END_COLOUR)"
 
+$(DBG_PATH)%.o: %.c $(DEPENDENCIES) $(DBG_LIB)
+	@mkdir $(DBG_PATH) 2> /dev/null || true
+	$(CC) $(DBG_CFLAGS) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+
+$(DBG_LIB): libft/*.c libft/libft.h libft/Makefile
+	@echo "$(CYAN) Compiling library $(END_COLOUR)"
+	@$(MAKE) -C libft/ debug
+
+valgrind: debug
+	valgrind --leak-check=full ./$(DBG_NAME)
 
 clean:
-	rm -f $(OBJ)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
-	
-fclean: clean
-	rm -f $(NAME)
+	@echo "$(YELLOW) Removing objects $(END_COLOUR)"
+	@$(MAKE) -C libft/ clean
+	@$(RM) $(OBJ)
+	@$(RM) $(DBG_OBJ)
+	@$(RM) -R $(OBJ_PATH) 2> /dev/null || true
+	@$(RM) -R $(DBG_PATH) 2> /dev/null || true
 
-re: fclean all
+fclean: clean
+	@echo "$(YELLOW) Removing binary $(END_COLOUR)"
+	@$(MAKE) -C libft/ fclean
+	@$(RM) $(NAME)
+	@$(RM) $(DBG_NAME)
+
+re:
+	@echo "Recompiling"
+	@$(MAKE) fclean
+	@$(MAKE) all

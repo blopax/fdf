@@ -9,8 +9,8 @@
 #include <fcntl.h>
 
 # define FT_FDF_H
-# define WIN_X 640
-# define WIN_Y 640
+# define WIN_X 840
+# define WIN_Y 840
 # define BLUE 0xFF0000
 # define GREEN 0x00FF00
 # define RED 0x0000FF
@@ -93,6 +93,7 @@ typedef struct	s_env
 	int				previous_key;
 	t_coord			point0;
 	t_coord			point1;
+	int				flag;
 }					t_env;
 
 
@@ -140,5 +141,6 @@ int		expose_hook(t_env *env_ptr);
 void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour);
 double	ft_2D_distance(int x0, int y0, int x1, int y1);
 void	plot_line (t_env env, t_coord point0, t_coord point1);
+void	ft_height_min_max(t_env *env_ptr);
 
 #endif

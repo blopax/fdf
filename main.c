@@ -10,7 +10,7 @@ int		main(int argc, char **argv)
 	{
 		ft_putstr("Usage: Use ./fdf with a valid map\n\n");
 		ft_putstr("Mouse:\n\tScroll to zoom\n\tClick on 2 points to draw\n\n");
-		ft_putstr("Keyboard:\n\tescape to close window\n\ta to reset\n\tt to change transformation mode\n\tp and m for plus and minus to be used after following options\n\th & v to resize window\n\td to change depth (z_rotationscale)\n\ts to zoom\n\tq to modify para cte\n\tw & e to modify iso cte\n\tx y z to rotate on the relevant axis\n");
+		ft_putstr("Keyboard:\n\tescape to close window\n\tr to reset (ar for all)\n\tt to change transformation mode\n\tp and m for plus and minus to be used after following options\n\th & v to resize window\n\td to change depth (z_rotationscale)\n\ts to zoom\n\tq to modify para cte\n\tw & e to modify iso cte\n\tx y z to rotate on the relevant axis\n");
 		return (0);
 	}
 
