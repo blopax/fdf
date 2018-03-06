@@ -19,18 +19,20 @@ int     min(int a, int b)
 void	ft_height_min_max(t_env *env_ptr)
 {
 	int		i;
-	double		adjusted_z;
 
 	i = 0;
-	adjusted_z = env_ptr->double_coord_tab[i].z;// * env_ptr->param.manual_z_scale;
-	env_ptr->XY_info.z_min = env_ptr->double_coord_tab[0].z * adjusted_z;
-	env_ptr->XY_info.z_max = env_ptr->double_coord_tab[0].z * adjusted_z;
+	env_ptr->XY_info.z_min = env_ptr->double_coord_tab[i].z;
+	env_ptr->XY_info.z_max = env_ptr->double_coord_tab[i].z;
+/*	ft_putnbr(env_ptr->XY_info.z_min);
+	ft_putstr(" / ");
+	ft_putnbr(env_ptr->XY_info.z_max);
+	ft_putstr("\n");*/
 	while (i < env_ptr-> x_size * env_ptr->y_size)
 	{
-		if (env_ptr->double_coord_tab[i].z * adjusted_z < env_ptr->XY_info.z_min)
-			env_ptr->XY_info.z_min = env_ptr->double_coord_tab[i].z * adjusted_z;
-		if (env_ptr->double_coord_tab[i].z * adjusted_z > env_ptr->XY_info.z_max)
-			env_ptr->XY_info.z_max = env_ptr->double_coord_tab[i].z * adjusted_z;
+		if (env_ptr->double_coord_tab[i].z < env_ptr->XY_info.z_min)
+			env_ptr->XY_info.z_min = env_ptr->double_coord_tab[i].z;
+		if (env_ptr->double_coord_tab[i].z > env_ptr->XY_info.z_max)
+			env_ptr->XY_info.z_max = env_ptr->double_coord_tab[i].z;
 		i++;
 	}
 	if (env_ptr->param.colour_mode <= 1)
@@ -70,6 +72,7 @@ int		ft_colour(t_env env, int x, int y, t_coord point0, t_coord point1)
 	double z;
 	int colour;
 
+	ft_height_min_max(&env);
 	z = ft_height(x, y, point0, point1);
 	if (env.param.colour_mode == 0 || (env.param.colour_mode == 1 && env.XY_info.z_max == env.XY_info.z_min))
 		return (WHITE);

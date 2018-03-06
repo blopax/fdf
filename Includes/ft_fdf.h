@@ -15,10 +15,10 @@
 # define GREEN 0x00FF00
 # define RED 0x0000FF
 # define WHITE 0xFFFFFF
-# define BLUE_HGT -10.0
+# define BLUE_HGT -1.0
 # define GREEN_HGT 0.0
-# define RED_HGT 10.0
-# define WHITE_HGT 100.0
+# define RED_HGT 3.0
+# define WHITE_HGT 10.0
 
 typedef struct	s_coord
 {

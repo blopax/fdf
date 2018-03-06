@@ -6,11 +6,11 @@ void	ft_previous_key(int k, t_env *env_ptr)
 		env_ptr->previous_key = 'x';
 	else if (k == 16)
 		env_ptr->previous_key = 'y';
-	else if (k == 13)
-		env_ptr->previous_key = 'z';
-	else if (k == 0)
-		env_ptr->previous_key = 'q';//para cte 1
 	else if (k == 6)
+		env_ptr->previous_key = 'z';
+	else if (k == 12)
+		env_ptr->previous_key = 'q';//para cte 1
+	else if (k == 13)
 		env_ptr->previous_key = 'w';//iso cte 1
 	else if (k == 14)
 		env_ptr->previous_key = 'e';//iso cte 2
@@ -22,11 +22,11 @@ void	ft_previous_key(int k, t_env *env_ptr)
 		env_ptr->previous_key = 'h';//horizontal win_x 
 	else if (k == 9)
 		env_ptr->previous_key = 'v';//vertical win_y
-	else if (k == 12)
+	else if (k == 0)
 		env_ptr->previous_key = 'a';//all si reset (touche suivante ou all si a)
 	else
 	{
-		if (!(k == 35 || k == 41))
+		if (!(k == 35 || k == 46))
 			env_ptr->previous_key = '0';
 	}
 }
