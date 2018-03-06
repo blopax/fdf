@@ -25,8 +25,8 @@ typedef struct	s_coord
 	int		x;
 	int		y;
 	int		z;
-    int     X_proj;
-    int     Y_proj;
+    int     x_proj;
+    int     y_proj;
     int     colour;
 }				t_coord;
 
@@ -35,8 +35,8 @@ typedef struct	s_double_coord
 	double		x;
 	double		y;
 	double		z;
-    double		X_proj;
-    double		Y_proj;
+    double		x_proj;
+    double		y_proj;
 }				t_double_coord;
 
 typedef struct	s_param
@@ -60,17 +60,17 @@ typedef struct	s_param
 }				t_param;
 
 
-typedef struct	s_XY_info
+typedef struct	s_xy_info
 {
-	double		X_max;
-	double		X_min;
-	double		X_width;
-    double		Y_max;
-    double		Y_min;
-    double		Y_width;
+	double		x_proj_max;
+	double		x_proj_min;
+	double		x_proj_width;
+    double		y_proj_max;
+    double		y_proj_min;
+    double		y_proj_width;
 	double		z_min;
 	double		z_max;
-}				t_XY_info;
+}				t_xy_info;
 
 typedef struct	s_env
 {
@@ -84,7 +84,7 @@ typedef struct	s_env
 	int				**tab;
 	int				x_size;
 	int				y_size;
-	t_XY_info		XY_info;
+	t_xy_info		xy_info;
 	t_coord			*coord_tab;
 	t_double_coord	*double_coord_tab;
 	double			scale;
@@ -139,7 +139,7 @@ void	ft_reset(t_env *env_ptr);
 int		ft_mlx_win_treat(t_env env);
 int		expose_hook(t_env *env_ptr);
 void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour);
-double	ft_2D_distance(int x0, int y0, int x1, int y1);
+double	ft_2d_distance(int x0, int y0, int x1, int y1);
 void	plot_line (t_env env, t_coord point0, t_coord point1);
 void	ft_height_min_max(t_env *env_ptr);
 

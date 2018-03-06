@@ -1,5 +1,16 @@
-#include "Includes/ft_fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_manipulate_data.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/06 18:58:32 by pclement          #+#    #+#             */
+/*   Updated: 2018/03/06 18:58:49 by pclement         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "Includes/ft_fdf.h"
 
 void	ft_coord_tab_fill(t_env *env_ptr)
 {
@@ -16,8 +27,8 @@ void	ft_coord_tab_fill(t_env *env_ptr)
 		env_ptr->coord_tab[i].y = (i / env_ptr->x_size);
 		env_ptr->coord_tab[i].z = env_ptr->tab[i / env_ptr->x_size]
 			[i % env_ptr->x_size] * env_ptr->param.manual_z_scale;
-		env_ptr->coord_tab[i].X_proj = 0;
-		env_ptr->coord_tab[i].Y_proj = 0;
+		env_ptr->coord_tab[i].x_proj = 0;
+		env_ptr->coord_tab[i].y_proj = 0;
 		i++;
 	}
 }
@@ -36,12 +47,12 @@ void	ft_copy_double_tab(t_env *env_ptr)
 	}
 	i = 0;
 	while (i < size)
-	{	
+	{
 		env_ptr->double_coord_tab[i].x = (double)(env_ptr->coord_tab[i].x);
 		env_ptr->double_coord_tab[i].y = (double)(env_ptr->coord_tab[i].y);
 		env_ptr->double_coord_tab[i].z = (double)(env_ptr->coord_tab[i].z);
-		env_ptr->double_coord_tab[i].X_proj = 0.0;
-		env_ptr->double_coord_tab[i].Y_proj = 0.0;
+		env_ptr->double_coord_tab[i].x_proj = 0.0;
+		env_ptr->double_coord_tab[i].y_proj = 0.0;
 		i++;
 	}
 }
@@ -62,8 +73,10 @@ void	ft_int_transfo(t_env *env_ptr)
 	i = 0;
 	while (i < size)
 	{
-		env_ptr->coord_tab[i].X_proj = (int)(env_ptr->double_coord_tab[i].X_proj);
-		env_ptr->coord_tab[i].Y_proj = (int)(env_ptr->double_coord_tab[i].Y_proj);
+		env_ptr->coord_tab[i].x_proj =
+			(int)(env_ptr->double_coord_tab[i].x_proj);
+		env_ptr->coord_tab[i].y_proj =
+			(int)(env_ptr->double_coord_tab[i].y_proj);
 		i++;
 	}
 }

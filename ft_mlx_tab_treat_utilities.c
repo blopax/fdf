@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_mlx_tab_treat_utilities.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/06 18:56:08 by pclement          #+#    #+#             */
+/*   Updated: 2018/03/06 19:17:09 by pclement         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Includes/ft_fdf.h"
 
 void	ft_previous_key(int k, t_env *env_ptr)
@@ -9,28 +21,27 @@ void	ft_previous_key(int k, t_env *env_ptr)
 	else if (k == 6)
 		env_ptr->previous_key = 'z';
 	else if (k == 12)
-		env_ptr->previous_key = 'q';//para cte 1
+		env_ptr->previous_key = 'q';
 	else if (k == 13)
-		env_ptr->previous_key = 'w';//iso cte 1
+		env_ptr->previous_key = 'w';
 	else if (k == 14)
-		env_ptr->previous_key = 'e';//iso cte 2
+		env_ptr->previous_key = 'e';
 	else if (k == 1)
-		env_ptr->previous_key = 's';//scale manual total scale
+		env_ptr->previous_key = 's';
 	else if (k == 2)
-		env_ptr->previous_key = 'd';//depth z-scale
+		env_ptr->previous_key = 'd';
 	else if (k == 4)
-		env_ptr->previous_key = 'h';//horizontal win_x 
+		env_ptr->previous_key = 'h';
 	else if (k == 9)
-		env_ptr->previous_key = 'v';//vertical win_y
+		env_ptr->previous_key = 'v';
 	else if (k == 0)
-		env_ptr->previous_key = 'a';//all si reset (touche suivante ou all si a)
+		env_ptr->previous_key = 'a';
 	else
 	{
 		if (!(k == 35 || k == 46))
 			env_ptr->previous_key = '0';
 	}
 }
-
 
 void	ft_keycode_plus(t_env *env_ptr)
 {
@@ -107,4 +118,3 @@ void	ft_reset(t_env *env_ptr)
 	if (env_ptr->previous_key == 'v')
 		(&(env_ptr->param))->colour_mode = 0;
 }
-
