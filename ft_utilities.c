@@ -12,6 +12,21 @@
 
 #include "Includes/ft_fdf.h"
 
+int		ft_power_n(int x, int n)
+{
+	int		i;
+	int		result;
+
+	i = 0;
+	result = 1;
+	while (i < n)
+	{
+		result = result * x;
+		i++;
+	}
+	return (result);
+}
+
 int		ft_error(void)
 {
 	write(2, "Error\n", 6);

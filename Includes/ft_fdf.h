@@ -142,5 +142,10 @@ void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour);
 double	ft_2d_distance(int x0, int y0, int x1, int y1);
 void	plot_line (t_env env, t_coord point0, t_coord point1);
 void	ft_height_min_max(t_env *env_ptr);
+void	ft_height_min_max(t_env *env_ptr);
+void	ft_height_min_max(t_env *env_ptr);
+int		max(int a, int b);
+int		min(int a, int b);
+int		ft_power_n(int x, int n);
 
 #endif

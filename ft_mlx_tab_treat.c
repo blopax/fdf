@@ -32,8 +32,10 @@ int		key_hook(int keycode, t_env *env_ptr)
 		(env_ptr->param).colour_mode = ((env_ptr->param).colour_mode + 1) % 3;
 	if (keycode == 17)
 		(env_ptr->param).applied_transfo = 1 - (env_ptr->param).applied_transfo;
-	if ((env_ptr->previous_key == 'h' || env_ptr->previous_key == 'v') &&
-			(keycode == 35 || keycode == 46))
+	if (((env_ptr->previous_key == 'h' || env_ptr->previous_key == 'v') &&
+			(keycode == 35 || keycode == 46)) ||
+			((env_ptr->previous_key == 'a' || env_ptr->previous_key == 'h' ||
+			env_ptr->previous_key == 'v') && keycode == 15))
 	{
 		mlx_destroy_window(env_ptr->mlx, env_ptr->win);
 		env_ptr->flag = 1;
@@ -47,21 +49,13 @@ int		key_hook(int keycode, t_env *env_ptr)
 
 int		mouse_hook(int button, int x, int y, t_env *env_ptr)
 {
-	ft_putstr("\nbutton=\t");
-	ft_putnbr(button);
-	ft_putstr("\n");
-	ft_putstr("\nx=\t");
-	ft_putnbr(x);
-	ft_putstr("\n");
-	ft_putstr("\ny=\t");
-	ft_putnbr(y);
-	ft_putstr("\n\n");
-
 	if (button == 4)
 		(env_ptr->param).manual_total_scale /= 1.1;
 	if (button == 5)
 		(env_ptr->param).manual_total_scale *= 1.1;
 	expose_hook(env_ptr);
+	x = 0;
+	y = 0;
 	return (0);
 }
 
