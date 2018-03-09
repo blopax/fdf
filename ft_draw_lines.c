@@ -37,23 +37,22 @@ int		ft_colour(t_env env, int x, int y, t_coord point0, t_coord point1)
 	double	z;
 	int		colour;
 
-	ft_height_min_max(&env);
 	z = ft_height(x, y, point0, point1);
 	if (env.param.colour_mode == 0 || (env.param.colour_mode == 1 &&
 				env.xy_info.z_max == env.xy_info.z_min))
 		return (WHITE);
-	colour = (int)(BLUE * (1 - min(max((z - env.param.blue_hgt) /
-						(env.param.green_hgt - env.param.blue_hgt), 0), 1))
-			+ GREEN * (1 - min(max((z - env.param.green_hgt) /
-						(env.param.blue_hgt - env.param.green_hgt), 0), 1) -
+	colour = (int)(BLUE * (1.0 - min(max((z - env.param.blue_hgt) /
+						(env.param.green_hgt - env.param.blue_hgt), 0.0), 1.0))
+			+ GREEN * (1.0 - min(max((z - env.param.green_hgt) /
+						(env.param.blue_hgt - env.param.green_hgt), 0.0), 1.0) -
 				min(max((z - env.param.green_hgt) / (env.param.red_hgt -
-							env.param.green_hgt), 0), 1))
-			+ RED * (1 - min(max((z - env.param.red_hgt) / (env.param.green_hgt
-							- env.param.red_hgt), 0), 1) -
+							env.param.green_hgt), 0.0), 1.0))
+			+ RED * (1.0 - min(max((z - env.param.red_hgt) / (env.param.green_hgt
+							- env.param.red_hgt), 0.0), 1.0) -
 				min(max((z - env.param.red_hgt) / (env.param.white_hgt -
-							env.param.red_hgt), 0), 1)) + WHITE * (1 -
+							env.param.red_hgt), 0.0), 1.0)) + WHITE * (1.0 -
 					min(max((z - env.param.white_hgt) / (env.param.red_hgt
-								- env.param.white_hgt), 0), 1)));
+								- env.param.white_hgt), 0.0), 1.0)));
 	return (colour);
 }
 
@@ -107,6 +106,7 @@ void	draw(t_env *env_ptr)
 	int		i;
 
 	i = 0;
+	ft_height_min_max(env_ptr);
 	while (i < env_ptr->x_size * env_ptr->y_size)
 	{
 		if ((i % env_ptr->x_size) + 1 < env_ptr->x_size)

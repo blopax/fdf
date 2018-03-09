@@ -144,8 +144,8 @@ void	plot_line (t_env env, t_coord point0, t_coord point1);
 void	ft_height_min_max(t_env *env_ptr);
 void	ft_height_min_max(t_env *env_ptr);
 void	ft_height_min_max(t_env *env_ptr);
-int		max(int a, int b);
-int		min(int a, int b);
+double		max(double a, double b);
+double		min(double a, double b);
 int		ft_power_n(int x, int n);
 
 #endif

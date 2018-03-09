@@ -17,7 +17,7 @@ double		ft_2d_distance(int x0, int y0, int x1, int y1)
 	return (sqrt((((double)ft_power_n(x1 - x0, 2) + ft_power_n(y1 - y0, 2)))));
 }
 
-int		max(int a, int b)
+double		max(double a, double b)
 {
 	if (a <= b)
 		return (b);
@@ -25,7 +25,7 @@ int		max(int a, int b)
 		return (a);
 }
 
-int		min(int a, int b)
+double		min(double a, double b)
 {
 	if (a <= b)
 		return (a);
