@@ -81,6 +81,7 @@ void	ft_init_env(t_env *env_ptr)
 	env_ptr->double_coord_tab = 0;
 	env_ptr->scale = 1;
 	env_ptr->previous_key = 0;
+	env_ptr->flag = 0;
 }
 /*
 void	ft_show_tab(int **tab, int x_size, int y_size)
