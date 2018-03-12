@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/ft_fdf.h"
+#include "../includes/ft_fdf.h"
 
 int		*ft_convert_int(char **char_tab, int *line_size)
 {

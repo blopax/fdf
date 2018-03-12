@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/ft_fdf.h"
+#include "../includes/ft_fdf.h"
 
 void	ft_x_proj_width(t_env *env_ptr)
 {

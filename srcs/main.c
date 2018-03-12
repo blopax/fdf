@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/ft_fdf.h"
+#include "../includes/ft_fdf.h"
 
 int		ft_usage(void)
 {
@@ -41,6 +41,8 @@ int		main(int argc, char **argv)
 		return (ft_error());
 	ft_init_env(&env);
 	env.tab = get_table(fd, &env);
+	if (env.tab == 0)
+		return (ft_error());
 	ft_init_param(&(env.param));
 	ft_manipulate_data(&env);
 	error = 0;
@@ -55,4 +57,3 @@ int		main(int argc, char **argv)
 }
 
 // verifier arg=echo "1"; ./fdf ARG 
-// si fichier vide non rectangulaire etc...

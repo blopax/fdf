@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/ft_fdf.h"
+#include "../includes/ft_fdf.h"
 
 int		ft_power_n(int x, int n)
 {

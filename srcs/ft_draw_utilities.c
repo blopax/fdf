@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/ft_fdf.h"
+#include "../includes/ft_fdf.h"
 
 double		ft_2d_distance(int x0, int y0, int x1, int y1)
 {

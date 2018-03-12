@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/ft_fdf.h"
+#include "../includes/ft_fdf.h"
 
 void	ft_coord_tab_fill(t_env *env_ptr)
 {
@@ -19,7 +19,7 @@ void	ft_coord_tab_fill(t_env *env_ptr)
 
 	size = env_ptr->x_size * env_ptr->y_size;
 	if (!(env_ptr->coord_tab = (t_coord *)malloc(sizeof(t_coord) * size)))
-		exit(0);
+		exit(1);
 	i = 0;
 	while (i < env_ptr->x_size * env_ptr->y_size)
 	{
@@ -42,8 +42,8 @@ void	ft_copy_double_tab(t_env *env_ptr)
 	if (!env_ptr->double_coord_tab)
 	{
 		if (!(env_ptr->double_coord_tab = (t_double_coord *)
-				malloc(sizeof(t_double_coord) * size)))
-			exit(0);
+					malloc(sizeof(t_double_coord) * size)))
+			exit(1);
 	}
 	i = 0;
 	while (i < size)
