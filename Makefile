@@ -5,7 +5,7 @@ CC = clang
 CFLAGS = -Werror -Wall -Wextra
 
 #flags for preprocessor
-CPPFLAGS = -Iincludes/ -Ilibft/
+CPPFLAGS = -Iincludes/ -Ilibft/ -Iminilibx_macos
 LFLAGS = -Llibft -lft -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
 LFLAGS_DEBUG = -Llibft -lft-debug -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
 
@@ -16,6 +16,9 @@ DEPENDENCIES = includes/ft_fdf.h Makefile
 LIB_PATH = libft/
 LIB_NAME = libft.a
 LIB = $(addprefix $(LIB_PATH), $(LIB_NAME))
+MLX_PATH = minilibx_macos/
+MLX_NAME = libmlx.a
+MLX = $(addprefix $(MLX_PATH), $(MLX_NAME))
 
 #srcs
 SRC_PATH = srcs/
@@ -54,13 +57,16 @@ $(NAME): $(OBJ)
 	$(CC) $(LFLAGS) $(OBJ) -o $@
 	@echo "$(GREEN) Binary compilation succesfull$(END_COLOUR)"
 
-$(OBJ_PATH)%.o: srcs/%.c $(DEPENDENCIES) $(LIB)
+$(OBJ_PATH)%.o: srcs/%.c $(DEPENDENCIES) $(LIB) $(MLX)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(LIB): libft/*.c libft/libft.h libft/Makefile
 	@echo "$(CYAN) Compiling library $(END_COLOUR)"
 	@$(MAKE) -C libft/
+
+$(MLX): minilibx_macos/*.c minilibx_macos/*.h minilibx_macos/mlx.h minilibx_macos/Makefile
+	@$(MAKE) -C minilibx_macos/
 
 debug: $(DBG_OBJ)
 	$(CC) $(LFLAGS_DEBUG) $(DBG_OBJ) $(DBG_CFLAGS) -o $(DBG_NAME)
@@ -77,6 +83,7 @@ $(DBG_LIB): libft/*.c libft/libft.h libft/Makefile
 clean:
 	@echo "$(YELLOW) Removing objects $(END_COLOUR)"
 	@$(MAKE) -C libft/ clean
+	@$(MAKE) -C minilibx_macos/ clean
 	@$(RM) $(OBJ)
 	@$(RM) $(DBG_OBJ)
 	@$(RM) -R $(OBJ_PATH) 2> /dev/null || true
@@ -85,6 +92,7 @@ clean:
 fclean: clean
 	@echo "$(YELLOW) Removing binary $(END_COLOUR)"
 	@$(MAKE) -C libft/ fclean
+	@$(MAKE) -C minilibx_macos/ fclean
 	@$(RM) $(NAME)
 	@$(RM) $(DBG_NAME)
 
