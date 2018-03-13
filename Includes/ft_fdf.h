@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:19:26 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/13 15:56:14 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:15:09 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,6 @@ int					ft_mlx_tab_treat(t_env env);
 void				ft_double_transfo(t_env *env_ptr);
 t_double_coord		*ft_rotation(t_double_coord *init, t_double_coord *origin,
 			char c, int angle);
-int					ft_colour(t_env env, int x, int y, t_coord point0,
-			t_coord point1);
 void				draw_lines(t_env env, int x1, int y1, int z1, int x2,
 			int y2, int z2);
 void				draw(t_env *env_ptr);

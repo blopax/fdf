@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:27:20 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/13 15:47:07 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:26:10 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_usage(void)
 {
 	ft_putstr("Usage: Use ./fdf with a valid map\n\n");
-	ft_putstr("Mouse:\n\tScroll to zoom\n\n");
+	ft_putstr("Mouse:\n\tScroll right and left to dezoom/zoom\n\n");
 	ft_putstr("Keyboard:\n\tescape to close window\n\tr to reset (a r for all)\
 			\n\tt to change transformation mode\
 			\n\tp and m for plus and minus to be used after following options\

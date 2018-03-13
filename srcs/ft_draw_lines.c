@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 19:02:48 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/13 16:05:00 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:15:06 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ double	ft_height(int x, int y, t_coord point0, t_coord point1)
 				(double)(point1.z - point0.z)));
 }
 
-int		ft_colour(t_env env, int x, int y, t_coord point0, t_coord point1)
+int		ft_colour(t_env env, t_bresenheim b, t_coord point0, t_coord point1)
 {
 	double	z;
 	int		colour;
 
-	z = ft_height(x, y, point0, point1);
+	z = ft_height(b.x, b.y, point0, point1);
 	if (env.param.colour_mode == 0 || (env.param.colour_mode == 1 &&
 				env.xy_info.z_max == env.xy_info.z_min))
 		return (WHITE);
@@ -47,8 +47,8 @@ int		ft_colour(t_env env, int x, int y, t_coord point0, t_coord point1)
 						(env.param.blue_hgt - env.param.green_hgt), 0.0), 1.0) -
 				min(max((z - env.param.green_hgt) / (env.param.red_hgt -
 							env.param.green_hgt), 0.0), 1.0))
-			+ RED * (1.0 - min(max((z - env.param.red_hgt) / (env.param.green_hgt
-							- env.param.red_hgt), 0.0), 1.0) -
+			+ RED * (1.0 - min(max((z - env.param.red_hgt) /
+						(env.param.green_hgt - env.param.red_hgt), 0.0), 1.0) -
 				min(max((z - env.param.red_hgt) / (env.param.white_hgt -
 							env.param.red_hgt), 0.0), 1.0)) + WHITE * (1.0 -
 					min(max((z - env.param.white_hgt) / (env.param.red_hgt
@@ -72,43 +72,32 @@ void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour)
 
 void	plot_line(t_env env, t_coord point0, t_coord point1)
 {
-	t_bresenheim bres_info;
+	t_bresenheim	b;
 
-	bres_info.x = point0.x_proj;
-	bres_info.y = point0.y_proj;
-	bres_info.dx = abs(point1.x_proj - bres_info.x);
-	bres_info.sx = bres_info.x < point1.x_proj ? 1 : -1;
-	bres_info.dy = -abs(point1.y_proj - bres_info.y);
-	bres_info.sy = bres_info.y < point1.y_proj ? 1 : -1;
-	bres_info.err = bres_info.dx + bres_info.dy;
-	mlx_put_pxl_to_img(env, bres_info.x, bres_info.y, ft_colour(env, bres_info.x, bres_info.y, point0, point1));
-	while (bres_info.x != point1.x_proj || bres_info.y != point1.y_proj)
+	b.x = point0.x_proj;
+	b.y = point0.y_proj;
+	b.dx = abs(point1.x_proj - b.x);
+	b.sx = b.x < point1.x_proj ? 1 : -1;
+	b.dy = -abs(point1.y_proj - b.y);
+	b.sy = b.y < point1.y_proj ? 1 : -1;
+	b.err = b.dx + b.dy;
+	mlx_put_pxl_to_img(env, b.x, b.y, ft_colour(env, b, point0, point1));
+	while (b.x != point1.x_proj || b.y != point1.y_proj)
 	{
-		mlx_put_pxl_to_img(env, bres_info.x, bres_info.y, ft_colour(env, bres_info.x, bres_info.y, point0, point1));
-		bres_info.e2 = 2 * bres_info.err;
-		if (bres_info.e2 >= bres_info.dy)
+		mlx_put_pxl_to_img(env, b.x, b.y, ft_colour(env, b, point0, point1));
+		b.e2 = 2 * b.err;
+		if (b.e2 >= b.dy)
 		{
-			bres_info.err += bres_info.dy;
-			bres_info.x += bres_info.sx;
+			b.err += b.dy;
+			b.x += b.sx;
 		}
-		if (bres_info.e2 <= bres_info.dx)
+		if (b.e2 <= b.dx)
 		{
-			bres_info.err += bres_info.dx;
-			bres_info.y += bres_info.sy;
+			b.err += b.dx;
+			b.y += b.sy;
 		}
 	}
 }
-//faire une structure bresenheim  x y dx dy sx sy err e2
-// envoyer strucutre ds ft_colour
-// Error (line 35): ft_colour have 5 parameters
-// Error (line 50): line has 82 characters
-// Error (line 73): bad spacing after plot_line
-// Error (line 73, col 0): plot_line has 8 variables
-// Error (line 75): multiple declarations
-// Error (line 101): C++ comment
-// Error (line 101): spaces at the end of line
-// Error (line 102): C++ comment
-// Error (line 102): spaces at the end of line
 
 void	draw(t_env *env_ptr)
 {

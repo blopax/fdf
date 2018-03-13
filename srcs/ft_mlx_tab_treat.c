@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:56:51 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/13 15:45:35 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:23:58 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int		key_hook(int keycode, t_env *env_ptr)
 
 int		mouse_hook(int button, int x, int y, t_env *env_ptr)
 {
-	if (button == 4)
+	if (button == 6)
 		(env_ptr->param).manual_total_scale /= 1.1;
-	if (button == 5)
+	if (button == 7)
 		(env_ptr->param).manual_total_scale *= 1.1;
 	expose_hook(env_ptr);
 	x = 0;
