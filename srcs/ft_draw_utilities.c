@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 19:00:42 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/06 19:01:31 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 15:40:01 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ double		min(double a, double b)
 		return (b);
 }
 
-void	ft_param_colour(t_env *env_ptr)
+void		ft_param_colour(t_env *env_ptr)
 {
 	if (env_ptr->param.colour_mode <= 1)
 	{
@@ -53,8 +53,7 @@ void	ft_param_colour(t_env *env_ptr)
 	}
 }
 
-
-void	ft_height_min_max(t_env *env_ptr)
+void		ft_height_min_max(t_env *env_ptr)
 {
 	int		i;
 

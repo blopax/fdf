@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:56:08 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/06 19:17:09 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 15:51:08 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ void	ft_previous_key(int k, t_env *env_ptr)
 		env_ptr->previous_key = 'v';
 	else if (k == 0)
 		env_ptr->previous_key = 'a';
-	else
-	{
-		if (!(k == 35 || k == 46))
-			env_ptr->previous_key = '0';
-	}
+	else if (!(k == 35 || k == 46))
+		env_ptr->previous_key = '0';
 }
 
 void	ft_keycode_plus(t_env *env_ptr)

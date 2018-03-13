@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:32:09 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/06 18:48:09 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 15:47:32 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,67 +83,3 @@ void	ft_init_env(t_env *env_ptr)
 	env_ptr->previous_key = 0;
 	env_ptr->flag = 0;
 }
-/*
-void	ft_show_tab(int **tab, int x_size, int y_size)
-{
-	int		i;
-	int		j;
-
-	j = 0;
-	while (j < y_size)
-	{
-		i = 0;
-		while (i < x_size)
-		{
-			ft_putnbr(tab[j][i]);
-			ft_putstr("\t");
-			i++;
-		}
-		j++;
-		ft_putstr("\n");
-	}
-}
-
-
-void	ft_show_coord_tab(t_coord *coord_tab, int x_size, int y_size)
-{
-    int		i;
-    
-    i = 0;
-    while (i < x_size * y_size)
-    {
-		if (coord_tab[i].x == 0)
-			ft_putstr("\n");
-        ft_putnbr(coord_tab[i].x_proj);
-        ft_putstr("/");
-        ft_putnbr(coord_tab[i].y_proj);
-        ft_putstr("\t");
-        i++;
-    }
-}
-
-void	ft_show_double_coord_tab(t_double_coord *double_coord_tab, int x_size, int y_size)
-{
-    int		i;
- 
-	i = 0;
-    while (i < x_size * y_size)
-    {
-		if (i % x_size == 0)
-			printf("\n");
-        printf("%f/%f/%f\t",double_coord_tab[i].x, double_coord_tab[i].y, double_coord_tab[i].z);
-        i++;
-    }
-
-        printf("\n\n");
-        i++;
-	i = 0;
-    while (i < x_size * y_size)
-    {
-		if (i % x_size == 0)
-			printf("\n");
-		printf("%f/%f\t", double_coord_tab[i].x_proj, double_coord_tab[i].y_proj);
-		i++;
-	}
-}
-*/

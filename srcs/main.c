@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:27:20 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/06 18:31:57 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 15:47:07 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,3 @@ int		main(int argc, char **argv)
 		return (ft_error());
 	return (0);
 }
-
-// verifier arg=echo "1"; ./fdf ARG 

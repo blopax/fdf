@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 19:02:48 by pclement          #+#    #+#             */
-/*   Updated: 2018/03/06 19:11:34 by pclement         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:05:00 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,34 +72,43 @@ void	mlx_put_pxl_to_img(t_env env, int x, int y, int colour)
 
 void	plot_line(t_env env, t_coord point0, t_coord point1)
 {
-	int x, y, dx, dy, sx, sy, err, e2;
+	t_bresenheim bres_info;
 
-	x = point0.x_proj;
-	y = point0.y_proj;
-	dx = abs(point1.x_proj - x);
-	sx = x < point1.x_proj ? 1 : -1;
-	dy = -abs(point1.y_proj - y);
-	sy = y < point1.y_proj ? 1 : -1;
-	err = dx + dy;
-	mlx_put_pxl_to_img(env, x, y, ft_colour(env, x, y, point0, point1));
-	while (x != point1.x_proj || y != point1.y_proj)
+	bres_info.x = point0.x_proj;
+	bres_info.y = point0.y_proj;
+	bres_info.dx = abs(point1.x_proj - bres_info.x);
+	bres_info.sx = bres_info.x < point1.x_proj ? 1 : -1;
+	bres_info.dy = -abs(point1.y_proj - bres_info.y);
+	bres_info.sy = bres_info.y < point1.y_proj ? 1 : -1;
+	bres_info.err = bres_info.dx + bres_info.dy;
+	mlx_put_pxl_to_img(env, bres_info.x, bres_info.y, ft_colour(env, bres_info.x, bres_info.y, point0, point1));
+	while (bres_info.x != point1.x_proj || bres_info.y != point1.y_proj)
 	{
-		mlx_put_pxl_to_img(env, x, y, ft_colour(env, x, y, point0, point1));
-		e2 = 2 * err;
-		if (e2 >= dy)
+		mlx_put_pxl_to_img(env, bres_info.x, bres_info.y, ft_colour(env, bres_info.x, bres_info.y, point0, point1));
+		bres_info.e2 = 2 * bres_info.err;
+		if (bres_info.e2 >= bres_info.dy)
 		{
-			err += dy;
-			x += sx;
+			bres_info.err += bres_info.dy;
+			bres_info.x += bres_info.sx;
 		}
-		if (e2 <= dx)
+		if (bres_info.e2 <= bres_info.dx)
 		{
-			err += dx;
-			y += sy;
+			bres_info.err += bres_info.dx;
+			bres_info.y += bres_info.sy;
 		}
 	}
 }
-//faire une structure bresenheim  x y dx dy sx sy err e2 
-// envoyer strucutre ds ft_colour 
+//faire une structure bresenheim  x y dx dy sx sy err e2
+// envoyer strucutre ds ft_colour
+// Error (line 35): ft_colour have 5 parameters
+// Error (line 50): line has 82 characters
+// Error (line 73): bad spacing after plot_line
+// Error (line 73, col 0): plot_line has 8 variables
+// Error (line 75): multiple declarations
+// Error (line 101): C++ comment
+// Error (line 101): spaces at the end of line
+// Error (line 102): C++ comment
+// Error (line 102): spaces at the end of line
 
 void	draw(t_env *env_ptr)
 {
